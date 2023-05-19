@@ -18,13 +18,13 @@ var (
 func init() {
     path := "log/mylog.log"
     writer, _ := rotatelogs.New(
-        path+".%Y%m%d%H%M",
+        path+".%Y%m%d",
         rotatelogs.WithLinkName(path),
         rotatelogs.WithMaxAge(time.Duration(180)*time.Second),
         rotatelogs.WithRotationTime(time.Duration(60)*time.Second),
     )
     log.SetOutput(writer)
-    log.SetReportCaller(true) 
+    // log.SetReportCaller(true) 
 	flag.Parse()
 }
 
@@ -33,6 +33,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	
+	
 	queue.RunWorker()
 	fmt.Println("server listen on :", *address)
 	err = queue.ListenAndServe(*address)

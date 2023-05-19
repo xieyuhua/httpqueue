@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
     "fmt"
+    "time"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -57,7 +58,8 @@ func post(task *Task) (int, error) {
 	defer resp.Body.Close()
 
 	result, err := ioutil.ReadAll(resp.Body)
-	fmt.Printf("result : %s => %s \n",task.ID, result)
+	date := time.Now().Format("2006-01-02 15:04:05")
+	fmt.Printf("%s result : %s => %s \n",date, task.ID, result)
 	log.Infof("result : %s => %s",task.ID, result)
 	if err != nil {
 		log.WithError(err).Error("io read from backend fail task-id:" + task.ID)

@@ -3,6 +3,7 @@ package queue
 import (
 	"encoding/json"
 	"fmt"
+	"time"
     log "github.com/sirupsen/logrus"
 	"github.com/garyburd/redigo/redis"
 )
@@ -38,7 +39,8 @@ func createTask(task *Task) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("createTask :%s \n", String(data))
+	date := time.Now().Format("2006-01-02 15:04:05")
+	fmt.Printf("%s createTask :%s \n",date, String(data))
 	log.Infof("createTask :%s ", String(data))
 	c := pool.Get()
 	defer c.Close()
@@ -55,7 +57,8 @@ func updateTask(task *Task) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("updateTask :%s \n", String(data))
+	date := time.Now().Format("2006-01-02 15:04:05")
+	fmt.Printf("%s updateTask :%s \n",date, String(data))
 	log.Infof("updateTask :%s ", String(data))
 	c := pool.Get()
 	defer c.Close()
