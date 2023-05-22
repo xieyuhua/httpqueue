@@ -8,7 +8,7 @@ var (
 	RedisConnectTimeout  = 50 * time.Millisecond
 	RedisReadTimeout     = 50 * time.Millisecond
 	RedisWriteTimeout    = 100 * time.Millisecond
-	RedisPoolMaxIdle     = 200
+	RedisPoolMaxIdle     = 200 //post 客户端并发执行大小
 	RedisPoolIdleTimeout = 3 * time.Minute
 )
 
