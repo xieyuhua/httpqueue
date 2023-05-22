@@ -40,7 +40,7 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	task := &Task{
-		ID:          "queue:"+uuid.New(),
+		ID:          request.Topic+":"+uuid.New(),
 		Topic:       request.Topic,
 		ExecuteTime: time.Now().Unix() + request.Delay,
 		MaxRetry:    request.Retry,

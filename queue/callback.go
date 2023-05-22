@@ -11,7 +11,7 @@ import (
 )
 
 var httpClient = &http.Client{
-	Timeout: CallbackTTR,
+	Timeout: Timeout,
 	Transport: &http.Transport{
 		MaxIdleConnsPerHost: MaxIdleConnsPerHost,
 		MaxIdleConns:        MaxIdleConns,
@@ -48,7 +48,9 @@ func post(task *Task) (int, error) {
 	}
 
 	content := bytes.NewBuffer(data)
+	start := time.Now()
 	resp, err := httpClient.Post(task.Callback, "application/json", content)
+	end   := time.Now()
 	if err != nil {
 	    fmt.Println("task fail task-id:", task.ID)
 		log.WithError(err).Error("http post fail task-id:" + task.ID)
@@ -59,8 +61,10 @@ func post(task *Task) (int, error) {
 
 	result, err := ioutil.ReadAll(resp.Body)
 	date := time.Now().Format("2006-01-02 15:04:05")
-	fmt.Printf("%s result : %s => %s \n",date, task.ID, result)
-	log.Infof("result : %s => %s",task.ID, result)
+	transferTime := end.Sub(start)
+// 	fmt.Println(transferTime)
+	fmt.Printf("%s result : %s => %s ,cost time %s \n", date, task.ID, result, transferTime)
+	log.Infof("result : %s => %s ,cost time %s",task.ID, result ,transferTime)
 	if err != nil {
 		log.WithError(err).Error("io read from backend fail task-id:" + task.ID)
 		return 0, err

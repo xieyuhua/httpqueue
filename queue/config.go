@@ -23,8 +23,9 @@ var (
 )
 
 var (
-	CallbackTTR         = 3 * time.Second //time to run
-	MaxIdleConnsPerHost = 10
-	MaxIdleConns        = 1024
-	IdleConnTimeout     = time.Minute * 5
+    Timeout             = 600*time.Second
+	CallbackTTR         = 1 * time.Second //time to run
+	MaxIdleConnsPerHost = 10 //
+	MaxIdleConns        = 1024 //
+	IdleConnTimeout     = time.Minute * 5 //
 )
