@@ -2,6 +2,11 @@
 
 httpqueue is a redis base delay queue
 
+todo 
+
+服务负载均衡，redis，etcd 集群  主主复制同步，
+
+
 ### Usege
 golang version: 1.9+
 ```
