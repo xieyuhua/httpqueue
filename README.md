@@ -10,7 +10,7 @@ Usage of ./httpqueue:
   -address string
     	serve listen address (default ":2356")
   -redis string
-    	redis address (default "redis://root:123456@127.0.0.1:6379/3")
+    	redis address (default "redis://:895623@127.0.0.1:6379/3")
     	
     	
 :12800/debug/pprof/
