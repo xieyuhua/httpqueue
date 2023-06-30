@@ -15,7 +15,7 @@ import (
 var (
 	redisURL = flag.String("redis", "redis://:895623@127.0.0.1:6379/3", "redis address")
 	address  = flag.String("address", ":2356", "serve listen address")
-	port  = flag.String("port", ":12800", "listen stat addr")
+	port  = flag.String("port", ":12860", "listen stat addr")
 )
 
 func Run() {
@@ -38,7 +38,7 @@ func Run() {
 func init() {
     path := "log/mylog.log"
     writer, _ := rotatelogs.New(
-        path+".%Y%m%d%",
+        path+".%Y%m%d",
         // path+".%Y%m%d%H%M",
         rotatelogs.WithLinkName(path),
         rotatelogs.WithRotationTime(24*time.Hour),
