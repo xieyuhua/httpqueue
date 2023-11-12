@@ -9,6 +9,16 @@ redis，etcd 集群  主主复制同步
 日志对接es,ck,mogodb
 ```
 
+```
+#!/bin/bash
+binName="bin/httpqueue"
+GOOS=linux GOARCH=amd64 go build -o "$binName"_linux
+GOOS=darwin GOARCH=amd64 go build -o "$binName"_macos
+GOOS=freebsd GOARCH=amd64 go build -o "$binName"_freebsd
+GOOS=linux GOARCH=arm go build -o "$binName"_arm
+GOOS=windows GOARCH=amd64 go build -o "$binName"_win64.exe
+```
+
 ### Usege
 golang version: 1.9+
 ```
