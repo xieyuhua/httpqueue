@@ -37,16 +37,16 @@ Usage of ./httpqueue:
 
 ```
 /*
-	{
-		"ID": "tbmember:3c5e2757",
-		"Topic": "tbmember",
-		"ExecuteTime": 1702089148,
-		"MaxRetry": 5,
-		"Callback": "http://192.168.2.6:8485/reg/api/tbmember",
-		"Content": "{\"daa\":23123}",
-		"CreatTime": 1702089118
-	}
-	zadd later_delay tbmember:3c5e2757 1702089148
+{
+	"ID": "tbmember:3c5e2757",
+	"Topic": "tbmember",
+	"ExecuteTime": 1702089148,
+	"MaxRetry": 5,
+	"Callback": "http://192.168.2.6:8485/reg/api/tbmember",
+	"Content": "{\"daa\":23123}",
+	"CreatTime": 1702089118
+}
+zadd later_delay tbmember:3c5e2757 1702089148
 */
 
 // redis://[password]@[host]:[port]/[database]
