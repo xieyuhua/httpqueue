@@ -35,6 +35,38 @@ Usage of ./httpqueue:
 ```
 
 
+```
+/*
+	{
+		"ID": "tbmember:3c5e2757",
+		"Topic": "tbmember",
+		"ExecuteTime": 1702089148,
+		"MaxRetry": 5,
+		"Callback": "http://192.168.2.6:8485/reg/api/tbmember",
+		"Content": "{\"daa\":23123}",
+		"CreatTime": 1702089118
+	}
+	zadd later_delay tbmember:3c5e2757 1702089148
+*/
+
+// redis://[password]@[host]:[port]/[database]
+$param = [];
+$url = 'http://192.168.2.6:2356/create';
+$data['ID'] = 'tbmember:'.uniqid();
+$data['Topic'] = 'tbmember';
+$data['ExecuteTime'] = time() + 2;
+$data['MaxRetry'] = 5;
+$data['Callback'] = "http://192.168.2.6:8485/reg/api/tbmember";
+$data['Content']  = json_encode($param);
+$data['CreatTime'] = time();
+
+$redis = new \Redis();
+$redis->connect('127.0.0.1',6379); 
+$redis->select(3);
+$redis->set($data['ID'], json_encode($data));
+$redis->zadd("later_delay", $data['ExecuteTime'] , $data['ID'] );
+```
+
 
 ### Frontend API
 
