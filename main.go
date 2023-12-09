@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	redisURL = flag.String("redis", "redis://:895623@127.0.0.1:6379/3", "redis address")
+	redisURL = flag.String("redis", "redis://123456@127.0.0.1:6379/3", "redis://[password]@[host]:[port]/[database]")
 	address  = flag.String("address", ":2356", "serve listen address")
 	port  = flag.String("port", ":12860", "listen stat addr")
 )
