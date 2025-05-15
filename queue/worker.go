@@ -15,29 +15,25 @@ func RunWorker() {
 }
 
 func delayWorker() {
+	maxConcurrent := 20 // 最大并发数
+	taskCh := make(chan struct{}, maxConcurrent) // 控制并发的令牌桶
 	ticker := time.NewTicker(DelayWorkerInterval)
 	for _ = range ticker.C {
-		
+		taskCh <- struct{}{} // 获取令牌
 		begin := time.Now().Add(-time.Duration(TaskTTL) * time.Second).Unix()
 		end := time.Now().Add(-CallbackTTR).Unix()
-		// 当前之前所有数据都执行
 		begin = 0
-		// 读取符合要求id，并不删除，可能存在，同一个任务id，前面没有执行完成，又来执行，加一个任务池，跑完一批，在执行一批次，或者通道，
 		ids, err := getTasks(DelayBucket, begin, end)
 		if err != nil {
 			log.WithError(err).Error("get tasks fail")
 			return
 		}
-		//阻塞走完第一波
-		wg := sync.WaitGroup{}
 		for _, id := range ids {
-			wg.Add(1)
 			go func() {
-			  defer wg.Done()
+			  defer func() { <-taskCh }() // 协程退出时释放令牌
 			  callback(id)
 			}()
 		}
-		wg.Wait()
 	}
 }
 
