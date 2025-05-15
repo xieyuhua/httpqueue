@@ -24,11 +24,13 @@ func delayWorker() {
 		end := time.Now().Add(-CallbackTTR).Unix()
 		begin = 0
 		ids, err := getTasks(DelayBucket, begin, end)
+		 <-taskCh 
 		if err != nil {
 			log.WithError(err).Error("get tasks fail")
 			return
 		}
 		for _, id := range ids {
+			taskCh <- struct{}{} // 获取令牌
 			go func() {
 			  defer func() { <-taskCh }() // 协程退出时释放令牌
 			  callback(id)
