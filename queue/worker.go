@@ -72,7 +72,7 @@ func errorWorker() {
 		}()
 	}
 }
-
+// 执行函数，做一个通道，限制请求，
 func callback(id string) {
 	task, err := getTask(id)
 	if err != nil {
